@@ -2,6 +2,10 @@
   "name": "servinggo_merchant_web_client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "6.4.1",
+    "node": "8.11.1"
+  },
   "dependencies": {
     "@babel/runtime": "^7.1.5",
     "axios": "^0.18.0",
@@ -24,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
