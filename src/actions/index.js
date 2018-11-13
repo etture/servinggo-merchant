@@ -1,10 +1,14 @@
 import axios from 'axios';
 import {AUTH_USER, AUTH_ERROR} from "./types";
 
+const local_api = "http://localhost:3012";
+const remote_api = "https://servinggo-api.herokuapp.com";
+
 export const signup = (formProps, callback) => async dispatch => {
     try {
         console.log(formProps);
-        const response = await axios.post('http://localhost:3012/api/merchant/auth/signup', formProps);
+        // const response = await axios.post(`${local_api}/api/merchant/auth/signup`, formProps);
+        const response = await axios.post(`${remote_api}/api/merchant/auth/signup`, formProps);
         dispatch({
             type: AUTH_USER,
             payload: response.data.token
@@ -23,7 +27,8 @@ export const signup = (formProps, callback) => async dispatch => {
 export const signin = (formProps, callback) => async dispatch => {
     try {
         console.log(formProps);
-        const response = await axios.post('http://localhost:3012/api/merchant/auth/signin', formProps);
+        // const response = await axios.post(`${local_api}/api/merchant/auth/signin`, formProps);
+        const response = await axios.post(`${remote_api}/api/merchant/auth/signin`, formProps);
         dispatch({
             type: AUTH_USER,
             payload: response.data.token
