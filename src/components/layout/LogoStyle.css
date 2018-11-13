@@ -1,0 +1,9 @@
+.signin-img{
+    display: block;
+    width: 100%;
+}
+
+.img-parent{
+    max-width: 300px;
+    margin: 4% auto 1% auto;
+}

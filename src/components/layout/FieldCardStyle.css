@@ -1,0 +1,10 @@
+.text-gradient {
+    background: -webkit-linear-gradient(-70deg, rgb(103, 71, 239), rgb(110, 189, 238));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.btn-gradient {
+    background-image: -webkit-linear-gradient(-70deg, rgb(103, 71, 239), rgb(110, 189, 238));
+    border: 0px solid transparent;
+}
