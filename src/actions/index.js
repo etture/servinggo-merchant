@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {AUTH_USER_ACCESS, AUTH_USER_REFRESH, AUTH_ERROR} from "./types";
 
-const api = process.env.SERVINGGO_API || process.env.REACT_APP_LOCAL_API;
+const api = process.env.REACT_APP_SERVINGGO_API || process.env.REACT_APP_LOCAL_API;
 console.log('process.env:', api);
 export const signup = (formProps, callback) => async dispatch => {
     try {
