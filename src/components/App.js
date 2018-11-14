@@ -11,9 +11,9 @@ import Dashboard from './Dashboard';
 
 class App extends Component {
     componentWillMount() {
-        console.log('access token:', this.props.access_token);
-        console.log(Date.now());
         const {access_token, refresh_token} = this.props;
+        console.log('access token:', access_token);
+        console.log('refresh token:', refresh_token);
 
         // at: access token, rt: refresh token
         let at_decoded, rt_decoded;
@@ -32,9 +32,13 @@ class App extends Component {
                     console.log('Access token expired!');
                     // rt not yet expired, at expired
                     // request at with rt
+                    this.props.refreshAccessToken(refresh_token, () => {
+                        this.props.history.push('/dashboard');
+                    });
                 }else{
                     // at not yet expired (authenticated)
                     // proceed to dashboard
+                    console.log('access, refresh tokens valid');
                     this.props.history.push('/dashboard');
                 }
             }
