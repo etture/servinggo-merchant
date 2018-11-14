@@ -4,6 +4,7 @@ import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import dotenv from 'dotenv';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -14,6 +15,9 @@ import reduxThunk from 'redux-thunk';
 
 import reducers from './reduers';
 import App from './components/App';
+
+// Allow access to environment variables
+dotenv.config();
 
 const store = createStore(
     reducers,
