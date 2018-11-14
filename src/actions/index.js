@@ -1,8 +1,7 @@
 import axios from 'axios';
 import {AUTH_USER_ACCESS, AUTH_USER_REFRESH, AUTH_ERROR} from "./types";
 
-// const api = "http://localhost:3012";
-const api = "https://servinggo-api.herokuapp.com";
+const api = process.env.SERVINGGO_API || "http://localhost:3012";
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
