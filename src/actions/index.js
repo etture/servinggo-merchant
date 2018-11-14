@@ -63,11 +63,12 @@ export const refreshAccessToken = (refresh_token, callback) => async dispatch =>
             }
         };
         const response = await axios.post(`${api}/api/merchant/auth/refresh`, {}, headerConfig);
+        console.log('response:', response);
         dispatch({
             type: AUTH_USER_REFRESH,
             payload: response.data.access_token
         });
-        localStorage.setItem('access_token', response.data.token.access_token);
+        localStorage.setItem('access_token', response.data.access_token);
         callback();
     } catch (err) {
         dispatch({
