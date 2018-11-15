@@ -2,7 +2,7 @@ import axios from 'axios';
 import {AUTH_USER_ACCESS, AUTH_USER_REFRESH, AUTH_ERROR} from "./types";
 
 const api = process.env.REACT_APP_SERVINGGO_API || process.env.REACT_APP_LOCAL_API;
-console.log('process.env:', api);
+
 export const signup = (formProps, callback) => async dispatch => {
     try {
         console.log(formProps);
@@ -12,8 +12,8 @@ export const signup = (formProps, callback) => async dispatch => {
             type: AUTH_USER_ACCESS,
             payload: response.data.token
         });
-        localStorage.setItem('access_token', response.data.token.access_token);
-        localStorage.setItem('refresh_token', response.data.token.refresh_token);
+        localStorage.setItem('accessToken', response.data.token.accessToken);
+        localStorage.setItem('refreshToken', response.data.token.refreshToken);
         callback();
     } catch (err) {
         dispatch({
@@ -33,8 +33,8 @@ export const signin = (formProps, callback) => async dispatch => {
             payload: response.data.token
         });
         console.log('payload:', response.data.token);
-        localStorage.setItem('access_token', response.data.token.access_token);
-        localStorage.setItem('refresh_token', response.data.token.refresh_token);
+        localStorage.setItem('accessToken', response.data.token.accessToken);
+        localStorage.setItem('refreshToken', response.data.token.refreshToken);
         callback();
     } catch (err) {
         dispatch({
@@ -45,8 +45,8 @@ export const signin = (formProps, callback) => async dispatch => {
 };
 
 export const signout = (callback) => async dispatch => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     dispatch({
         type: AUTH_USER_ACCESS,
         payload: ''
@@ -54,20 +54,20 @@ export const signout = (callback) => async dispatch => {
     callback();
 };
 
-export const refreshAccessToken = (refresh_token, callback) => async dispatch => {
+export const refreshAccessToken = (refreshToken, callback) => async dispatch => {
     try {
         const headerConfig = {
             headers: {
-                authorization: refresh_token
+                authorization: refreshToken
             }
         };
         const response = await axios.post(`${api}/api/merchant/auth/refresh`, {}, headerConfig);
         console.log('response:', response);
         dispatch({
             type: AUTH_USER_REFRESH,
-            payload: response.data.access_token
+            payload: response.data.accessToken
         });
-        localStorage.setItem('access_token', response.data.access_token);
+        localStorage.setItem('accessToken', response.data.accessToken);
         callback();
     } catch (err) {
         dispatch({

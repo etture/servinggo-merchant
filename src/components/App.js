@@ -1,39 +1,41 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter, BrowserRouter, Route, Switch} from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 import * as actions from '../actions/index';
 
 import './styles/App.css';
 import Signin from './Signin';
+import Signup from './Signup';
 import Dashboard from './Dashboard';
 
 class App extends Component {
     componentWillMount() {
-        const {access_token, refresh_token} = this.props;
-        console.log('access token:', access_token);
-        console.log('refresh token:', refresh_token);
+        const {accessToken, refreshToken} = this.props;
+        console.log('access token:', accessToken);
+        console.log('refresh token:', refreshToken);
 
         // at: access token, rt: refresh token
-        let at_decoded, rt_decoded;
-        if (refresh_token) {
-            rt_decoded = jwt_decode(refresh_token);
+        let atDecoded, rtDecoded;
+        if (refreshToken) {
+            rtDecoded = jwtDecode(refreshToken);
             // rt expired
-            if (rt_decoded.exp * 1000 < Date.now()) {
+            if (rtDecoded.exp * 1000 < Date.now()) {
                 console.log('Refresh token expired!');
                 this.props.history.push('/signin');
-            } else if (access_token) {
+            } else if (accessToken) {
                 // rt not yet expired
-                at_decoded = jwt_decode(access_token);
+                atDecoded = jwtDecode(accessToken);
 
                 // at expired
-                if(at_decoded.exp * 1000 < Date.now()){
+                if(atDecoded.exp * 1000 < Date.now()){
                     console.log('Access token expired!');
                     // rt not yet expired, at expired
                     // request at with rt
-                    this.props.refreshAccessToken(refresh_token, () => {
+                    this.props.refreshAccessToken(refreshToken, () => {
                         this.props.history.push('/dashboard');
+                        console.log('Access token refreshed!')
                     });
                 }else{
                     // at not yet expired (authenticated)
@@ -58,6 +60,7 @@ class App extends Component {
                         </div>
                     </Route>
                     <Route path="/signin" component={Signin}/>
+                    <Route path="/signup" component={Signup}/>
                     <Route path="/dashboard" component={Dashboard}/>
                 </Switch>
             </BrowserRouter>
@@ -66,7 +69,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-    return {access_token: state.auth.access_token, refresh_token: state.auth.refresh_token};
+    return {accessToken: state.auth.accessToken, refreshToken: state.auth.refreshToken};
 }
 
 export default withRouter(connect(mapStateToProps, actions)(App));
