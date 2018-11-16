@@ -1,10 +1,10 @@
 import React from 'react';
 
-import './GradientBackgroundStyle.css';
+import './BackgroundStyle.css';
 
 export default (props) => {
     return (
-        <div className="bg">
+        <div className="bg bg-white">
             {props.children}
         </div>
     );

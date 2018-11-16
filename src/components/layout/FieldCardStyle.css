@@ -1,10 +1,19 @@
 .text-gradient {
-    background: -webkit-linear-gradient(-70deg, rgb(103, 71, 239), rgb(110, 189, 238));
+    background: -webkit-linear-gradient(-70deg, rgb(255, 144, 33), rgb(255, 97, 97));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+.text-orange{
+    color: rgb(255, 144, 33);
+}
+
 .btn-gradient {
-    background-image: -webkit-linear-gradient(-70deg, rgb(103, 71, 239), rgb(110, 189, 238));
+    background-image: -webkit-linear-gradient(-70deg, rgb(255, 144, 33), rgb(255, 97, 97));
     border: 0px solid transparent;
+}
+
+.form-margin {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

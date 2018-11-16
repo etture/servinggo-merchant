@@ -6,7 +6,9 @@ import {connect} from 'react-redux';
 
 import * as actions from '../actions/index';
 
+import Background from './layout/Background';
 import CenterView from './layout/CenterView';
+import Logo from './layout/Logo';
 import FieldCard from './layout/FieldCard';
 
 class Signin extends Component {
@@ -33,33 +35,38 @@ class Signin extends Component {
         const {handleSubmit} = this.props;
 
         return (
-            <CenterView>
-                <FieldCard>
-                    <div className="card-body mx-3">
-                        <h4 className="card-title text-center mb-3">서빙고 대시보드에 로그인</h4>
-                        <form onSubmit={handleSubmit(this.onSubmit)}>
-                            <Field
-                                placeholder="이메일 주소"
-                                name="email"
-                                type="email"
-                                component={this.renderField}
-                                autoComplete="none"
-                            />
-                            <Field
-                                placeholder="비밀번호"
-                                name="password"
-                                type="password"
-                                component={this.renderField}
-                                autoComplete="none"
-                            />
-                            <button type="submit" className="btn btn-primary btn-block mt-4">로그인</button>
-                        </form>
-                    </div>
-                    <div className="card-footer text-center">
-                        서빙고 회원이 아니세요? <Link to="/signup" className="text">회원가입 하기</Link>
-                    </div>
-                </FieldCard>
-            </CenterView>
+            <Background>
+                <CenterView>
+                    <Logo/>
+                    <FieldCard>
+                        <div className="card-body mx-3">
+                            <h4 className="card-title text-center text-gradient mb-3">서빙고 대시보드 로그인</h4>
+                            <form onSubmit={handleSubmit(this.onSubmit)}>
+                                <Field
+                                    placeholder="이메일 주소"
+                                    name="email"
+                                    type="email"
+                                    component={this.renderField}
+                                    autoComplete="none"
+                                    required
+                                />
+                                <Field
+                                    placeholder="비밀번호"
+                                    name="password"
+                                    type="password"
+                                    component={this.renderField}
+                                    autoComplete="none"
+                                    required
+                                />
+                                <button type="submit" className="btn btn-primary btn-gradient btn-block mt-4">로그인</button>
+                            </form>
+                        </div>
+                        <div className="card-footer text-center">
+                            서빙고 회원이 아니세요? <Link to="/signup" className="text">회원가입하기</Link>
+                        </div>
+                    </FieldCard>
+                </CenterView>
+            </Background>
         );
     }
 }
