@@ -4,11 +4,11 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import * as actions from '../actions/index';
-import Background from './layout/Background';
-import CenterView from './layout/CenterView';
-import Logo from './layout/Logo';
-import FieldCard from './layout/FieldCard';
+import * as actions from '../../actions/index';
+import Background from '../layout/Background';
+import CenterView from '../layout/CenterView';
+import Logo from '../layout/Logo';
+import FieldCard from '../layout/FieldCard';
 
 
 class Signup extends Component {
@@ -16,7 +16,7 @@ class Signup extends Component {
         this.props.signup(formProps, () => {
             this.props.history.push('/dashboard');
         });
-    }
+    };
 
     renderField({placeholder, label, input, type}) {
         return (
@@ -95,4 +95,4 @@ function mapStateToProps(state) {
 export default compose(
     connect(mapStateToProps, actions),
     reduxForm({form: 'signup'})
-)(Signup)
+)(Signup);

@@ -4,12 +4,12 @@ import {compose} from 'redux';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import * as actions from '../actions/index';
+import * as actions from '../../actions/index';
 
-import Background from './layout/Background';
-import CenterView from './layout/CenterView';
-import Logo from './layout/Logo';
-import FieldCard from './layout/FieldCard';
+import Background from '../layout/Background';
+import CenterView from '../layout/CenterView';
+import Logo from '../layout/Logo';
+import FieldCard from '../layout/FieldCard';
 
 class Signin extends Component {
     onSubmit = formProps => {

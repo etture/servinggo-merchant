@@ -6,9 +6,9 @@ import jwtDecode from 'jwt-decode';
 import * as actions from '../actions/index';
 
 import './styles/App.css';
-import Signin from './Signin';
-import Signup from './Signup';
-import Dashboard from './Dashboard';
+import Signin from './pre-signin/Signin';
+import Signup from './pre-signin/Signup';
+import Dashboard from './post-signin/Dashboard';
 
 class App extends Component {
     componentWillMount() {

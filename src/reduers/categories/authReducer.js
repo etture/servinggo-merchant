@@ -1,4 +1,4 @@
-import {AUTH_USER_ACCESS, AUTH_USER_REFRESH, AUTH_ERROR} from "../actions/types";
+import {AUTH_USER_ACCESS, AUTH_USER_REFRESH, AUTH_ERROR} from "../../actions/types";
 
 const INITIAL_STATE = {
     accessToken: '',
