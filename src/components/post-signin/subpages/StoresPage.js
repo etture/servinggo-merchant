@@ -4,41 +4,65 @@ import {Link} from 'react-router-dom';
 
 import * as actions from '../../../actions/index';
 
+import CenterView from '../../layout_bulma/CenterView';
+
 class StoresPage extends Component {
     componentWillMount() {
-        const {accessToken} = this.props;
-        this.props.getStores(accessToken, () => {
+        const {token} = this.props;
+        this.props.getStores(token, () => {
             console.log("getStores run, numOfStores:", this.props.numOfStores);
+            console.log('stores:', this.props.stores);
         });
+    }
+
+    componentDidMount() {
+        console.log('StorePage componentDidMount:', this.props.stores);
     }
 
     renderStores(props) {
         let storesList = [];
         for (let i = 0; i < props.numOfStores; i++) {
-            storesList.push(<li key={props.stores[i].id}>{props.stores[i].name}</li>);
+            const store = props.stores[i];
+            // Pass store as props to <Link/> through the toParams object
+            const toParams = {
+                pathname: `${props.match.path}/${store.name}`,
+                storeId: store.id
+            };
+            storesList.push(
+                <li key={store.id}>
+                    <Link to={toParams}>{store.name}</Link>
+                </li>
+            );
         }
         return storesList;
     }
 
     render() {
         return (
-            <div className="columns">
-                <div className="column is-2"/>
-                <div className="column">
-                    <br/>
+            <CenterView>
                     <ul>
                         {this.renderStores(this.props)}
                     </ul>
-                    <Link to="/dashboard/new-store" className="text">새 매장 등록하기</Link>
-                </div>
-                <div className="column is-2"/>
-            </div>
+                    <Link
+                        to="/dashboard/new-store"
+                        className="button is-primary"
+                        style={{textDecoration: "none"}}>
+                        새 매장 등록하기
+                    </Link>
+            </CenterView>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return {accessToken: state.auth.accessToken, numOfStores: state.store.numOfStores, stores: state.store.stores};
+    return {
+        token: {
+            accessToken: state.auth.accessToken,
+            refreshToken: state.auth.refreshToken
+        },
+        numOfStores: state.store.numOfStores,
+        stores: state.store.stores
+    };
 }
 
 export default connect(mapStateToProps, actions)(StoresPage);

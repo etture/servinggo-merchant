@@ -16,7 +16,8 @@ class Navbar extends Component {
                 <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
                     <div className="navbar-brand">
                         <a className="navbar-item" href={window.location.origin + '/'}>
-                            <img src={window.location.origin + '/images/servinggo_primary_logo_eng_temp_2.png'} alt="Servinggo logo"/>
+                            <img src={window.location.origin + '/images/servinggo_primary_logo_eng_temp_2.png'}
+                                 alt="Servinggo logo"/>
                         </a>
                         <div className="navbar-burger" data-target="navbarMenu">
                             <span aria-hidden="true"></span>
@@ -28,13 +29,15 @@ class Navbar extends Component {
                     <div id="navbarMenu" className="navbar-menu">
                         <div className="navbar-start">
 
-                            <a className="navbar-item" href={window.location.origin + '/dashboard/home'}>홈</a>
+                            <a className="navbar-item"
+                               href={window.location.origin + '/dashboard/stores'}
+                               style={{textDecoration: "none"}}>홈</a>
 
                             {/*<div className="navbar-item has-dropdown is-hoverable">*/}
-                                {/*<a className="navbar-link">더 보기</a>*/}
-                                {/*<div className="navbar-dropdown is-boxed">*/}
-                                    {/*<a className="navbar-item">정보</a>*/}
-                                {/*</div>*/}
+                            {/*<a className="navbar-link">더 보기</a>*/}
+                            {/*<div className="navbar-dropdown is-boxed">*/}
+                            {/*<a className="navbar-item">정보</a>*/}
+                            {/*</div>*/}
                             {/*</div>*/}
                         </div>
 
@@ -50,6 +53,7 @@ class Navbar extends Component {
                     </div>
                 </nav>
                 <hr style={{margin: '0em'}}/>
+                <br/>
             </div>
         );
     }
