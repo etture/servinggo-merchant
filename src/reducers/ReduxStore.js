@@ -8,7 +8,8 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 const persistConfig = {
     key: 'root',
     storage,
-    stateReconciler: autoMergeLevel2
+    stateReconciler: autoMergeLevel2,
+    blacklist: ['menu']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

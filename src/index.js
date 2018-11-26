@@ -5,7 +5,8 @@ import * as serviceWorker from './serviceWorker';
 import dotenv from 'dotenv';
 
 // Bulma
-import 'bulma/css/bulma.css';
+// import 'bulma/css/bulma.css';
+import './components/styles/sass/mystyles.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

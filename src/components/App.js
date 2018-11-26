@@ -6,6 +6,7 @@ import jwtDecode from 'jwt-decode';
 import * as actions from '../actions/index';
 
 import './styles/App.css';
+
 import Signin from './pre-signin/Signin';
 import Signup from './pre-signin/Signup';
 import Dashboard from './post-signin/Dashboard';
@@ -25,7 +26,9 @@ class App extends Component {
             // rt expired
             if (rtDecoded.exp * 1000 < Date.now()) {
                 console.log('Refresh token expired!');
-                this.props.history.push('/signin');
+                this.props.signout(() => {
+                    this.props.history.push('/signin');
+                });
             } else if (accessToken) {
                 // rt not yet expired
                 atDecoded = jwtDecode(accessToken);

@@ -1,0 +1,16 @@
+div.panel-block {
+    cursor: pointer;
+}
+
+div.panel-block:hover {
+    background-color: whitesmoke;
+}
+
+.panel-block {
+    display: block
+}
+.panel-block.is-active {
+    border-left-color: #ff9021;
+    border-left-width: 3px;
+    color: #363636;
+}

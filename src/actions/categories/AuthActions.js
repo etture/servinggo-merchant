@@ -1,30 +1,10 @@
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-import {AUTH_USER_ACCESS, AUTH_USER_REFRESH, AUTH_ERROR} from "../types";
-
-const api = process.env.REACT_APP_SERVINGGO_API || process.env.REACT_APP_LOCAL_API;
-
-const action = (type, payload) => {
-    return {type, payload};
-};
-
-// Function to check if accessToken is expired
-// If so, refresh the accessToken first before calling the callback
-export const checkAccessToken = (token, callback) => {
-    const {accessToken, refreshToken} = token;
-    const atDecoded = jwtDecode(accessToken);
-    const rtDecoded = jwtDecode(refreshToken);
-
-    if (rtDecoded.exp * 1000 < Date.now()) {
-        console.log('Refresh token expired!');
-        refreshAccessToken('refreshToken expired');
-    } else if (atDecoded.exp * 1000 < Date.now()){
-        console.log('Access token expired!');
-        refreshAccessToken(refreshToken, callback);
-    } else{
-        callback();
-    }
-};
+import {
+    AUTH_ERROR,
+    AUTH_USER_ACCESS,
+    AUTH_USER_REFRESH
+} from "../types";
+import {api, action} from '../utils';
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
@@ -66,7 +46,7 @@ export const signout = (callback) => dispatch => {
 
     dispatch(action(AUTH_USER_ACCESS, ''));
 
-    callback();
+    if(callback) callback();
 };
 
 export const refreshAccessToken = (refreshToken, callback) => async dispatch => {

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {reduxForm, Field} from 'redux-form';
+import {renderTextArea} from "../../../../layout_bulma/ReduxFields";
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -12,7 +13,7 @@ class EditStoreDesc extends Component {
     constructor(props) {
         super(props);
 
-        this.myStore = props.stores.filter((store) => store.id === props.lastStoreId)[0];
+        this.myStore = props.stores.filter((store) => store.id === props.currentStoreId)[0];
 
         // Regex for finding URL of previous route
         const currentUrl = props.match.url;
@@ -24,6 +25,7 @@ class EditStoreDesc extends Component {
         this.state = {
             desc
         };
+
         console.log('Constructor desc:', this.state.desc);
         console.log('Constructor history:', this.props.history);
     }
@@ -55,45 +57,25 @@ class EditStoreDesc extends Component {
         console.log('Changed desc:', this.state.desc);
     };
 
-    renderField = ({placeholder, label, desc, input}) => {
-        console.log('renderField desc:', desc);
-        return (
-            <div className="field">
-                <label className="label">{label}</label>
-                <div className="control">
-                    <textarea
-                        {...input}
-                        className="textarea"
-                        placeholder={placeholder}
-                        style={{resize: "none"}}
-                        value={desc}
-                    />
-                </div>
-            </div>
-        );
-    };
-
     render() {
-        const {match, handleSubmit} = this.props;
-        console.log('EditStoreDesc myStore.description:', this.state.desc);
-        console.log('EditStoreDesc match:', match);
+        const {handleSubmit} = this.props;
 
         return (
             <CenterView>
                 <div className="column is-12">
                     <form onSubmit={handleSubmit(this.onSubmit)}>
                         <Field
-                            placeholder="매장 정보 입력"
-                            label="매장 정보"
+                            placeholder="매장 소개 입력"
+                            label="매장 소개"
                             name="description"
                             autoComplete="none"
-                            desc={this.state.desc}
+                            content={this.state.desc}
                             onChange={(e) => this.onDescChange(e.target.value)}
-                            component={this.renderField}
+                            component={renderTextArea}
                         />
                         <div className="field is-grouped">
                             <div className="control">
-                                <button className="button is-primary" type="submit">정보 수정</button>
+                                <button className="button is-primary" type="submit">저장</button>
                             </div>
                             <div className="control">
                                 <Link to={this.previousRoute}>
@@ -115,11 +97,11 @@ function mapStateToProps(state) {
             refreshToken: state.auth.refreshToken
         },
         stores: state.store.stores,
-        lastStoreId: state.store.lastStoreId
+        currentStoreId: state.store.currentStoreId
     };
 }
 
 export default compose(
     connect(mapStateToProps, actions),
-    reduxForm({form: 'editStoreInfo'})
+    reduxForm({form: 'editStoreDesc'})
 )(EditStoreDesc);

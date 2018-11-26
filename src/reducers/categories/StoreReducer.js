@@ -1,14 +1,25 @@
-import {STORE_GET_STORES, STORE_LAST, STORE_EDIT_DESC, STORE_ERROR} from "../../actions/types";
+import {
+    STORE_ERROR,
+    STORE_CREATE_NEW,
+    STORE_GET_STORES,
+    STORE_CURRENT_ID,
+    STORE_EDIT_DESC
+} from "../../actions/types";
 
 const INITIAL_STATE = {
     numOfStores: 0,
     stores: [],
-    lastStoreId: 0,
+    currentStoreId: 0,
     errorMessage: ''
 };
 
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
+        case STORE_CREATE_NEW:
+            return {
+                ...state,
+                errorMessage: ''
+            };
         case STORE_GET_STORES:
             // payload includes .accessToken and .refreshToken
             return {
@@ -17,17 +28,17 @@ export default function (state = INITIAL_STATE, action) {
                 stores: action.payload.stores,
                 errorMessage: ''
             };
-        case STORE_LAST:
+        case STORE_CURRENT_ID:
             return {
                 ...state,
-                lastStoreId: action.payload,
+                currentStoreId: action.payload,
                 errorMessage: ''
             };
         case STORE_EDIT_DESC:
             return {
                 ...state,
                 stores: state.stores.map((store) => {
-                    if (store.id === state.lastStoreId) {
+                    if (store.id === state.currentStoreId) {
                         return {
                             ...store,
                             description: action.payload
@@ -46,4 +57,4 @@ export default function (state = INITIAL_STATE, action) {
         default:
             return state;
     }
-}
+};

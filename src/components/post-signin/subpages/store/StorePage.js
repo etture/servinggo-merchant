@@ -6,14 +6,14 @@ import * as actions from '../../../../actions/index';
 
 // OverviewTab Tab
 import OverviewTab from './OverviewTab';
-import EditStoreInfo from './overview-sub/EditStoreDesc';
+import EditStoreDesc from './overview-tab-sub/EditStoreDesc';
 import MenuTab from './MenuTab';
 import TableTab from './TableTab';
 
 class StorePage extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.storeId = 0;
         this.state = {
             tabStatus: {
@@ -23,6 +23,7 @@ class StorePage extends Component {
                 otherInfo: ''
             }
         };
+        props.clearComp();
     }
 
     componentWillMount() {
@@ -30,15 +31,13 @@ class StorePage extends Component {
         this.storeId = this.props.location.storeId;
         console.log('this.storeId:', this.storeId);
         console.log('!this.storeId:', !this.storeId);
-        this.myStore = '';
+
         if (this.storeId) {
-            // Get myStore with store.id by filtering through props.stores
-            // this.myStore = this.props.stores.filter((store) => store.id === this.storeId)[0]; // this returns a size-1 array
-            this.props.saveLastStore(this.storeId);
-            // console.log('this.storeId is NOT undefined, myStore is:', this.myStore);
+            this.props.saveCurrentStoreId(this.storeId);
+            console.log('this.storeId is NOT undefined, currentStoreId is:', this.storeId);
         } else {
-            // this.myStore = this.props.stores.filter((store) => store.id === this.props.lastStoreId)[0];
-            // console.log('this.storeId is undefined, lastStore:', this.myStore);
+            this.storeId = this.props.currentStoreId;
+            console.log('this.storeId is undefined, currentStoreId:', this.storeId);
         }
     }
 
@@ -48,6 +47,7 @@ class StorePage extends Component {
                 storeInfo: '',
                 menuInfo: '',
                 tableInfo: '',
+                orderInto: '',
                 otherInfo: '',
                 ...tab
             }
@@ -64,7 +64,7 @@ class StorePage extends Component {
         return (
             <BrowserRouter>
                 <div>
-                    <div className="tabs is-medium">
+                    <div className="tabs is-small">
                         <ul>
                             <li className={this.state.tabStatus.storeInfo}>
                                 <Link to={`${match.url}`}
@@ -87,6 +87,13 @@ class StorePage extends Component {
                                     테이블 관리
                                 </Link>
                             </li>
+                            <li className={this.state.tabStatus.orderInfo}>
+                                <Link to={`${match.url}/orders`}
+                                      onClick={() => this.tabChange({orderInfo: 'is-active'})}
+                                      style={{textDecoration: "none"}}>
+                                    주문 관리
+                                </Link>
+                            </li>
                             <li className={this.state.tabStatus.otherInfo}>
                                 <Link to={`${match.url}/others`}
                                       onClick={() => this.tabChange({otherInfo: 'is-active'})}
@@ -97,10 +104,8 @@ class StorePage extends Component {
                         </ul>
                     </div>
                     <Switch>
-                        <Route exact path={`${match.url}`}
-                               render={(props) => <OverviewTab {...props} storeId={this.storeId}/>}/>
-                        <Route path={`${match.url}/editDesc`}
-                               render={(props) => <EditStoreInfo {...props} storeId={this.storeId}/>}/>
+                        <Route exact path={`${match.url}`} component={OverviewTab}/>
+                        <Route path={`${match.url}/editDesc`} component={EditStoreDesc}/>
                         <Route path={`${match.url}/menus`} component={MenuTab}/>
                         <Route path={`${match.url}/tables`} component={TableTab}/>
                     </Switch>
@@ -113,7 +118,7 @@ class StorePage extends Component {
 function mapStateToProps(state) {
     return {
         stores: state.store.stores,
-        lastStoreId: state.store.lastStoreId
+        currentStoreId: state.store.currentStoreId
     };
 }
 

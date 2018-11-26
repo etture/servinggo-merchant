@@ -28,9 +28,11 @@ class StoresPage extends Component {
                 pathname: `${props.match.path}/${store.name}`,
                 storeId: store.id
             };
+
             storesList.push(
-                <li key={store.id}>
-                    <Link to={toParams}>{store.name}</Link>
+                <li key={store.id} style={{marginBottom: "1rem"}}>
+                    <Link to={toParams} className="box"
+                          style={{textDecoration: "none"}}>{store.name}</Link>
                 </li>
             );
         }
@@ -40,15 +42,19 @@ class StoresPage extends Component {
     render() {
         return (
             <CenterView>
-                    <ul>
-                        {this.renderStores(this.props)}
-                    </ul>
-                    <Link
-                        to="/dashboard/new-store"
-                        className="button is-primary"
-                        style={{textDecoration: "none"}}>
-                        새 매장 등록하기
-                    </Link>
+                <div className="columns">
+                    <div className="column is-6">
+                        <ul>
+                            {this.renderStores(this.props)}
+                        </ul>
+                        <Link
+                            to="/dashboard/new-store"
+                            className="button is-primary"
+                            style={{textDecoration: "none"}}>
+                            새 매장 등록하기
+                        </Link>
+                    </div>
+                </div>
             </CenterView>
         );
     }

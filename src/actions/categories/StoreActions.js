@@ -1,12 +1,12 @@
 import axios from 'axios';
-import {STORE_GET_STORES, STORE_LAST, STORE_ERROR, STORE_EDIT_DESC} from "../types";
-import {checkAccessToken} from "./authActions";
-
-const api = process.env.REACT_APP_SERVINGGO_API || process.env.REACT_APP_LOCAL_API;
-
-const action = (type, payload) => {
-    return {type, payload};
-};
+import {
+    STORE_CREATE_NEW,
+    STORE_GET_STORES,
+    STORE_CURRENT_ID,
+    STORE_EDIT_DESC,
+    STORE_ERROR
+} from "../types";
+import {api, action, checkAccessToken} from "../utils";
 
 export const createNewStore = (token, formProps, callback) => dispatch => {
     checkAccessToken(token, async () => {
@@ -20,6 +20,7 @@ export const createNewStore = (token, formProps, callback) => dispatch => {
 
             console.log('createNewStore response:', response);
 
+            dispatch(action(STORE_CREATE_NEW, ''));
             callback();
 
         } catch (err) {
@@ -32,6 +33,7 @@ export const getStores = (token, callback) => dispatch => {
     checkAccessToken(token, async () => {
         try {
             const {accessToken} = token;
+
             // Configure header to contain accessToken
             const headerConfig = {headers: {authorization: accessToken}};
             const response = await axios.get(`${api}/api/merchant/store/getStores`, headerConfig);
@@ -48,8 +50,8 @@ export const getStores = (token, callback) => dispatch => {
 
 };
 
-export const saveLastStore = (storeId) => dispatch => {
-    dispatch(action(STORE_LAST, storeId));
+export const saveCurrentStoreId = (storeId) => dispatch => {
+    dispatch(action(STORE_CURRENT_ID, storeId));
 };
 
 export const editStoreDesc = (token, formProps, callback) => dispatch => {

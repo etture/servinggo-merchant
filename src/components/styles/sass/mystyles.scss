@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+// Custom variables
+$servinggo-orange: #ff9021;
+$dark-orange: #6f6555;
+$black: #000000;
+
+// Overriding Bulma variables
+$primary: $servinggo-orange;
+$dark: $dark-orange;
+$tabs-link-active-border-bottom-color: $primary;
+$tabs-link-active-color: $primary;
+$navbar-item-hover-color: $primary;
+$box-link-hover-shadow: 0 2px 3px rgba($black, 0.1), 0 0 0 1px $primary;
+$box-link-active-shadow: inset 0 1px 2px rgba($black, 0.2), 0 0 0 1px $primary;
+
+@import "../../../../node_modules/bulma/bulma";

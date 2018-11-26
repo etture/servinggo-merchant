@@ -13,7 +13,7 @@ class Navbar extends Component {
     render() {
         return (
             <div>
-                <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+                <nav className="navbar is-fixed-top is-mobile" role="navigation" aria-label="main navigation">
                     <div className="navbar-brand">
                         <a className="navbar-item" href={window.location.origin + '/'}>
                             <img src={window.location.origin + '/images/servinggo_primary_logo_eng_temp_2.png'}

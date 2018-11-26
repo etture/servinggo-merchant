@@ -11,20 +11,27 @@ class OverviewTab extends Component {
     render() {
         const {match} = this.props;
         // const {myStore} = this.props;
-        const myStore = this.props.stores.filter((store) => store.id === this.props.lastStoreId)[0];
-        console.log('OverviewTab myStore:', myStore, this.props.lastStoreId);
+        const myStore = this.props.stores.filter((store) => store.id === this.props.currentStoreId)[0];
+        console.log('OverviewTab myStore:', myStore, this.props.currentStoreId);
 
         return (
             <CenterView>
-                <h1>매장 정보</h1>
-                <h2>{myStore.name}</h2>
-                <p>{myStore.description}</p>
+                <p className="title">{myStore.name}</p>
+                <div className="level"
+                     style={{marginBottom: "0.3rem"}}>
+                    <div className="level-left">
+                        <p className="level-item label">매장 소개</p>
+                    </div>
+                    <div className="level-right">
+                        <Link to={match.path + '/editDesc'}
+                              className="level-item button is-dark is-outlined is-rounded is-small"
+                              style={{textDecoration: "none"}}>
+                            매장 소개 수정
+                        </Link>
+                    </div>
+                </div>
+                <p className="box">{myStore.description}</p>
 
-                <Link to={match.path + '/editDesc'}
-                      className="button is-primary"
-                      style={{textDecoration: "none"}}>
-                    매장정보 수정
-                </Link>
             </CenterView>
         );
     }
@@ -32,7 +39,7 @@ class OverviewTab extends Component {
 
 function mapStateToProps(state) {
     return {
-        lastStoreId: state.store.lastStoreId,
+        currentStoreId: state.store.currentStoreId,
         stores: state.store.stores
     };
 }
