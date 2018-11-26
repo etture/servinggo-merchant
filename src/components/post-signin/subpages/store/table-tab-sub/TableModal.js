@@ -23,7 +23,7 @@ class TableModal extends Component {
 
         let tableModal;
 
-        if(tableModalShown){
+        if (tableModalShown) {
             const table = registeredTables.filter((table) => table.table_num === selectedTableNum)[0];
             const className = tableModalShown ? 'modal is-active' : 'modal';
             console.log('selected table:', table);
@@ -38,13 +38,15 @@ class TableModal extends Component {
                         </header>
                         <section className="modal-card-body">
                             <img src={table.qr_url} alt="qr_image"/>
-                            <a className="button is-primary is-outlined" href={table.qr_url} download={`테이블${table.table_num}.png`} style={{textDecoration: "none"}} target="_blank">QR코드 이미지 다운로드 링크</a>
+                            <a className="button is-primary is-outlined" href={table.qr_url}
+                               download={`테이블${table.table_num}.png`} style={{textDecoration: "none"}} target="_blank">QR코드
+                                이미지 다운로드 링크</a>
                             {/*<button className="button is-primary is-outlined" onClick={() => this.downloadQR(table)}>QR코드 이미지 다운로드</button>*/}
                         </section>
                     </div>
                 </div>
             );
-        }else{
+        } else {
             tableModal = <div/>;
         }
 
